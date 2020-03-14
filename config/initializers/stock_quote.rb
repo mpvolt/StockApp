@@ -1,0 +1,1 @@
+StockQuote::Stock.new(api_key: 'pk_e4c67932d7634d978e14d4f93934c53f')

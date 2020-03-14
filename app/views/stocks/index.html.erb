@@ -1,0 +1,68 @@
+
+
+<h1>Stocks</h1>
+
+<table class = "table table-hover table-striped table-bordered">
+  <thead class = 'thead-dark'>
+    <tr>
+      <th>Company</th>
+      <th>Ticker</th>
+      <th>Current Price</th>
+      <th>Market Cap</th>
+      <th>Open</th>
+      <th>Close</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Volume</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stocks.each do |stock| %>
+      <% if stock.user_id == current_user.id %>
+        
+        <% begin %>
+         
+          <% @api = StockQuote::Stock.new(api_key: 'pk_e4c67932d7634d978e14d4f93934c53f') %>
+          <% @ticker = StockQuote::Stock.quote(stock.ticker) %>
+          
+          <% if !@ticker %>
+            <tr>
+              <td><%= link_to "Error", stock %></td>
+              <td><%= @stock.ticker %></td>
+              <td>N/A</td>
+              <td>N/A</td>
+
+              <td><center><%= link_to 'Edit', edit_stock_path(stock) %></td></center>
+              <td><center><%= link_to 'Delete','data-method' =>  :delete, data: { confirm: 'Are you sure?' } %></center></td>
+            </tr>
+
+          <% else %>
+            <tr>
+              <td><%= link_to @ticker.company_name, stock %></td>
+              <td><%= @ticker.symbol %></td>
+              <td>$<%= @ticker.latest_price %></td>
+              <td>$<%= number_with_precision(@ticker.market_cap, :precision =>2, :delimiter => ',') %></td>
+              <td>$<%= @ticker.open %></td>
+              <td>$<%= @ticker.close %></td>
+              <td>$<%= @ticker.high %></td>
+              <td>$<%= @ticker.low %></td>
+              <td>$<%= number_with_precision(@ticker.avg_total_volume, :precision =>2, :delimiter => ',')%></td>
+              <td><center><%= link_to 'Edit', edit_stock_path(stock) %></td></center>
+              <td><center><%= link_to 'Delete', stock_path(stock), 'data-method' =>  :delete, data: { confirm: 'Are you sure?' } %></center></td>
+            </tr>
+
+          <% end %>  
+
+        <% rescue RuntimeError %>
+          
+        <% end %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Stock', new_stock_path %>

@@ -1,0 +1,20 @@
+
+  <%= form_tag root_path, :method => 'POST' do %>
+      <%= text_field_tag 'ticker', nil, placeholder: "Enter Ticker Symbol", size: 50 %>
+      <%= submit_tag 'Lookup' %>
+  <% end %>
+
+  <% if @stock %>
+    <% if @stock == "" %>
+      That stock doesn't exist!
+    <%end %>
+    
+    <%= @stock.company_name %><br/>
+    $<%=@stock.latest_price %><br/>
+  <% elsif @nothing %>
+    <%= @nothing %>
+  <% end %>
+
+  <% if @error %>
+    <%= @error %>
+  <% end %>

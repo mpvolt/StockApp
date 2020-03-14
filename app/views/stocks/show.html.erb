@@ -1,0 +1,27 @@
+<% @api = StockQuote::Stock.new(api_key: 'pk_e4c67932d7634d978e14d4f93934c53f') %>
+<% @ticker = StockQuote::Stock.quote(@stock.ticker) %>
+
+<% if !@ticker %>
+
+ 
+ 	The ticker: <%= @stock.ticker %> does not exist!
+
+<% else %>
+ 	<strong><%= @ticker.company_name %></strong>(<%= @ticker.symbol %>)</br>
+	Ticker Symbol <%= @ticker.symbol %></br>
+  	Current Price: $<%= @ticker.latest_price %></br>
+  	52-Week High: $<%= @ticker.week52_high %></br>
+  	52-Week Low: $<%= @ticker.week52_low %></br>
+  	Market Cap: $<%= number_with_precision(@ticker.market_cap, :precision =>2, :delimiter => ',') %></br>
+  	YTD Change: <%= number_with_precision(@ticker.ytd_change, :precision =>2, :delimiter => ',') %>%</br>
+  	
+
+
+
+ 
+
+<% end %>
+
+
+<%= link_to 'Edit', edit_stock_path(@stock) %>
+<%= link_to 'Back', stocks_path %>
