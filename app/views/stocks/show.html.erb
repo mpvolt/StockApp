@@ -7,14 +7,14 @@
  	The ticker: <%= @stock.ticker %> does not exist!
 
 <% else %>
- 	<strong><%= @ticker.company_name %></strong>(<%= @ticker.symbol %>)</br>
+ 	<strong><%= @ticker.company_name %></strong></br>
 	Ticker Symbol <%= @ticker.symbol %></br>
   	Current Price: $<%= @ticker.latest_price %></br>
   	52-Week High: $<%= @ticker.week52_high %></br>
   	52-Week Low: $<%= @ticker.week52_low %></br>
   	Market Cap: $<%= number_with_precision(@ticker.market_cap, :precision =>2, :delimiter => ',') %></br>
   	YTD Change: <%= number_with_precision(@ticker.ytd_change, :precision =>2, :delimiter => ',') %>%</br>
-  	
+  	Sector: <%= @ticker.balance_sheet %></br>
 
 
 

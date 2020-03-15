@@ -1,4 +1,11 @@
+<% if !user_signed_in? %> 
 
+<div class="alert alert-primary" role="alert">
+  This is a simple stock tracking page. <br>
+  For example, Facebook => fb, Amazon => amzn. <br>
+  Please Sign In for more options.
+</div>
+<% end %>
   <%= form_tag root_path, :method => 'POST' do %>
       <%= text_field_tag 'ticker', nil, placeholder: "Enter Ticker Symbol", size: 50 %>
       <%= submit_tag 'Lookup' %>
@@ -11,6 +18,7 @@
     
     <%= @stock.company_name %><br/>
     $<%=@stock.latest_price %><br/>
+
   <% elsif @nothing %>
     <%= @nothing %>
   <% end %>
